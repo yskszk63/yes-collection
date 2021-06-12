@@ -77,8 +77,8 @@ while True:
 ```
 
 rust
-```
-n main() {
+```rust
+fn main() {
     loop {
         println!("y")
     }
