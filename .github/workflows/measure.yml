@@ -3,6 +3,8 @@ name: measure
 on:
   push:
     branches: main
+    paths:
+    - '!README.md'
 
 jobs:
   bash:
