@@ -6,7 +6,7 @@ use std::time::{Duration, SystemTime};
 
 fn main() -> io::Result<()> {
     const INTERVAL: u64 = 1;
-    const ITERATE: usize = 3;
+    const ITERATE: usize = 5;
 
     let args = env::args().collect::<Vec<_>>();
     let (name, prog) = match args.as_slice() {
