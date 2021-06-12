@@ -13,7 +13,7 @@ jobs:
     - run: ./run bash bash > result-bash.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: result-bash
+        name: results
         path: result-bash.txt
 
   c:
@@ -24,7 +24,7 @@ jobs:
     - run: ./run c c > result-c.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: result-c
+        name: results
         path: result-c.txt
 
   deno:
@@ -41,7 +41,7 @@ jobs:
     - run: ./run deno deno-${{ matrix.deno }} > result-deno-${{ matrix.deno }}.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: result-deno-${{ matrix.deno }}
+        name: results
         path: result-deno-${{ matrix.deno }}.txt
 
   go:
@@ -58,7 +58,7 @@ jobs:
     - run: ./run go go-${{ matrix.go }} > result-go-${{ matrix.go }}.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: result-go-${{ matrix.go }}
+        name: results
         path: result-go-${{ matrix.go }}.txt
 
   java:
@@ -76,7 +76,7 @@ jobs:
     - run: ./run java java-${{ matrix.java }} > result-java-${{ matrix.java }}.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: result-java-${{ matrix.java }}
+        name: results
         path: result-java-${{ matrix.java }}.txt
 
   node:
@@ -93,7 +93,7 @@ jobs:
     - run: ./run node node-${{ matrix.node }} > result-node-${{ matrix.node }}.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: result-node-${{ matrix.node }}
+        name: results
         path: result-node-${{ matrix.node }}.txt
 
   python:
@@ -110,7 +110,7 @@ jobs:
     - run: ./run python python-${{ matrix.python }} > result-python-${{ matrix.python }}.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: result-python-${{ matrix.python }}
+        name: results
         path: result-python-${{ matrix.python }}.txt
 
   rust:
@@ -129,7 +129,7 @@ jobs:
     - run: ./run rust rust-${{ matrix.rust }} > result-rust-${{ matrix.rust }}.txt
     - uses: actions/upload-artifact@v2
       with:
-        name: result-rust-${{ matrix.rust }}
+        name: results
         path: result-rust-${{ matrix.rust }}.txt
 
   collect:
