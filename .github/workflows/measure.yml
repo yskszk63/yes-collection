@@ -145,9 +145,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@v2
-    - run: find .
-    - run: tar Jcvf result.tar.xz result-*/result-*.txt
-    - uses: actions/upload-artifact@v2
+    - run: |
+      cat results/*.txt > results.txt
+      rm -rf results
+    - uses: peaceiris/actions-gh-pages@v3
       with:
-        name: result
-        path: result.tar.xz
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
