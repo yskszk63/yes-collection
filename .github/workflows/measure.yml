@@ -10,14 +10,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: bash -version
-    - run: ./run bash bash
+    - run: ./run bash bash > result-bash.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result-bash
+        path: result-bash.txt
 
   c:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - run: cc --version
-    - run: ./run c c
+    - run: ./run c c > result-c.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result-c
+        path: result-c.txt
 
   deno:
     runs-on: ubuntu-latest
@@ -30,7 +38,11 @@ jobs:
       with:
         deno-version: ${{ matrix.deno }}
     - run: deno --version
-    - run: ./run deno deno
+    - run: ./run deno deno-${{ matrix.deno }} > result-deno-${{ matrix.deno }}.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result-deno-${{ matrix.deno }}
+        path: result-deno-${{ matrix.deno }}.txt
 
   go:
     runs-on: ubuntu-latest
@@ -43,7 +55,11 @@ jobs:
       with:
         go-version: ${{ matrix.go }}
     - run: go version
-    - run: ./run go go
+    - run: ./run go go-${{ matrix.go }} > result-go-${{ matrix.go }}.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result-go-${{ matrix.go }}
+        path: result-go-${{ matrix.go }}.txt
 
   java:
     runs-on: ubuntu-latest
@@ -57,7 +73,11 @@ jobs:
         distribution: 'adopt'
         java-version: ${{ matrix.java }}
     - run: java -version
-    - run: ./run java java
+    - run: ./run java java-${{ matrix.java }} > result-java-${{ matrix.java }}.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result-java-${{ matrix.java }}
+        path: result-java-${{ matrix.java }}.txt
 
   node:
     runs-on: ubuntu-latest
@@ -70,7 +90,11 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
     - run: node --version
-    - run: ./run node node
+    - run: ./run node node-${{ matrix.node }} > result-node-${{ matrix.node }}.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result-node-${{ matrix.node }}
+        path: result-node-${{ matrix.node }}.txt
 
   python:
     runs-on: ubuntu-latest
@@ -83,7 +107,11 @@ jobs:
       with:
         python-version: ${{ matrix.python }}
     - run: python --version
-    - run: ./run python python
+    - run: ./run python python-${{ matrix.python }} > result-python-${{ matrix.python }}.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result-python-${{ matrix.python }}
+        path: result-python-${{ matrix.python }}.txt
 
   rust:
     runs-on: ubuntu-latest
@@ -98,4 +126,28 @@ jobs:
           override: true
           profile: minimal
     - run: rustc --version
-    - run: ./run rust rust
+    - run: ./run rust rust-${{ matrix.rust }} > result-rust-${{ matrix.rust }}.txt
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result-rust-${{ matrix.rust }}
+        path: result-rust-${{ matrix.rust }}.txt
+
+  collect:
+    needs:
+    - bash
+    - c
+    - deno
+    - go
+    - java
+    - node
+    - python
+    - rust
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v2
+    - run: find .
+    - run: tar Jcvf result.tar.xz .
+    - uses: actions/upload-artifact@v2
+      with:
+        name: result
+        path: result.tar.xz
