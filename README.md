@@ -60,7 +60,7 @@ public interface Yes {
 
 node
 ```javascript
-!/usr/bin/env node
+#!/usr/bin/env node
 
 while (true) {
     console.log("y");
