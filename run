@@ -1,0 +1,19 @@
+#!/bin/bash
+
+pwd=$(dirname $0)
+pwd=$(cd $pwd && pwd)
+
+lang=$1
+name=$2
+[ x"$lang" = x -o x"$name" = x ] && exit -1
+
+echo compiling .. >&2
+(cd "$pwd/$lang" && ./build)
+
+prog=$(mktemp)
+trap "rm $prog" EXIT
+
+rustc -o $prog $pwd/measure.rs
+
+echo running .. >&2
+(cd "$pwd/$lang" && $prog $name ./run)
